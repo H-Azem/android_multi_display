@@ -1,6 +1,6 @@
 # android_multi_display
 
-![Demo](https://raw.githubusercontent.com/H-Azem/android_multi_display/main/assets/gifs/demo.gif)
+![Overview](https://raw.githubusercontent.com/H-Azem/android_multi_display/main/assets/screenshots/banner.png)
 
 Android Flutter plugin for managing **multiple external displays** with **independent UI rendering** and **real-time data communication** between screens.
 
@@ -17,7 +17,7 @@ Android Flutter plugin for managing **multiple external displays** with **indepe
 
 ## 📸 Preview
 
-![Overview](https://raw.githubusercontent.com/H-Azem/android_multi_display/main/assets/screenshots/banner.png)
+![Demo](https://raw.githubusercontent.com/H-Azem/android_multi_display/main/assets/gifs/demo.gif)
 
 ---
 
@@ -60,7 +60,19 @@ controller.broadcast({"type": "ping"});
 Receive on panel:
 
 ```dart
-PanelBridge.publish({"type": "pong"});
+
+Future<bool> publish({
+  required String action,
+  dynamic payload,
+}) async {
+  final result = await _panelToHost.invokeMethod<bool>(
+    'panelToHost',
+    <String, dynamic>{'action': action, 'payload': payload},
+  );
+  return result == true;
+}
+
+publish({"type": "pong"});
 ```
 
 ---
