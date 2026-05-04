@@ -1,0 +1,19 @@
+name: android_multi_display_example
+description: Demonstrates Android multi display plugin.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  android_multi_display:
+    path: ../
+
+dev_dependencies:
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
