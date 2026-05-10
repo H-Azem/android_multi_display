@@ -32,12 +32,8 @@ screenshots:
     path: assets/screenshots/banner.png
 
 topics:
-  - display
   - external-display
   - multi-screen
-  - android
   - multi-display
-  - presentation
   - external-monitor
   - secondary-display
-  - android-multi-display

@@ -51,28 +51,58 @@ await controller.activatePanels();
 
 ## 🔄 Messaging
 
-Send data from host:
+### Host → Panels (send from main app)
 
 ```dart
-controller.broadcast({"type": "ping"});
+await controller.broadcast(
+  action: 'demo_message',
+  payload: {'tick': DateTime.now().millisecondsSinceEpoch},
+);
 ```
 
-Receive on panel:
+Receive on panel entrypoint (`secondaryDisplayMain` / `tertiaryDisplayMain`):
 
 ```dart
+import 'package:android_multi_display/panel_bridge.dart';
 
-Future<bool> publish({
-  required String action,
-  dynamic payload,
-}) async {
-  final result = await _panelToHost.invokeMethod<bool>(
-    'panelToHost',
-    <String, dynamic>{'action': action, 'payload': payload},
-  );
-  return result == true;
+void _incoming({required String action, dynamic payload}) {
+  debugPrint('from host: $action $payload');
 }
 
-publish({"type": "pong"});
+@override
+void initState() {
+  super.initState();
+  panelBridge.addListener(_incoming);
+}
+
+@override
+void dispose() {
+  panelBridge.removeListener(_incoming);
+  super.dispose();
+}
+```
+
+### Panels → Host (send from panel)
+
+```dart
+await panelBridge.publish(
+  action: 'panel_ping',
+  payload: {'label': 'Panel A'},
+);
+```
+
+Receive on host:
+
+```dart
+void _listenHostPayload({required String action, dynamic payload}) {
+  debugPrint('from panel: $action $payload');
+}
+
+@override
+void initState() {
+  super.initState();
+  controller.watchMessages(_listenHostPayload);
+}
 ```
 
 ---
