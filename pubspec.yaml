@@ -1,7 +1,7 @@
 name: android_multi_display
 description: Flutter plugin for managing multiple external displays on Android, with presentation rendering and real-time data communication between screens.
 
-version: 0.1.0
+version: 0.1.1
 
 homepage: https://github.com/H-Azem/android_multi_display
 repository: https://github.com/H-Azem/android_multi_display
